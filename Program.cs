@@ -1,8 +1,13 @@
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+// Nuestra inyección
+builder.Services.AddScoped<ITranslationService, TranslationService>();
+
+builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddControllers();
-// etc.
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
