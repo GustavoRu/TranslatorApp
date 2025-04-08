@@ -15,13 +15,10 @@ namespace TranslatorApp.Controllers
             _translationService = translationService;
         }
 
-        [HttpPost]
+        [HttpPost("translate")]
         public async Task<ActionResult<TranslationResponseDto>> Translate([FromBody] TranslationRequestDto request)
         {
             var result = await _translationService.TranslateAsync(request);
-            if (!result){
-                return BadRequest("Translation failed.");
-            }
             return Ok(result);
 
         }

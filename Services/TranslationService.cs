@@ -2,7 +2,7 @@ using TranslatorApp.DTOs;
 
 namespace TranslatorApp.Services
 {
-    public class TranslationService : : ITranslationService
+    public class TranslationService : ITranslationService
     {
         // private readonly ITranslationProvider _translationProvider;
 
