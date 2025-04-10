@@ -9,10 +9,12 @@ namespace TranslatorApp.Controllers
     public class TranslatorController : ControllerBase
     {
         private readonly ITranslationService _translationService;
+        private readonly ILyricsService _lyricsService;
 
-        public TranslatorController(ITranslationService translationService)
+        public TranslatorController(ITranslationService translationService, ILyricsService lyricsService)
         {
             _translationService = translationService;
+            _lyricsService = lyricsService;
         }
 
         [HttpPost("translate")]
@@ -21,6 +23,17 @@ namespace TranslatorApp.Controllers
             var result = await _translationService.TranslateAsync(request);
             return Ok(result);
 
+        }
+
+        [HttpGet("lyrics")]
+        public async Task<ActionResult<string>> GetLyrics([FromQuery] string artist, [FromQuery] string title)
+        {
+
+            var lyrics = await _lyricsService.GetLyricsAsync(artist, title);
+            if (lyrics == null)
+                return NotFound("Letra no encontrada");
+
+            return Ok(lyrics);
         }
     }
 }
