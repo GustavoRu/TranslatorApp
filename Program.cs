@@ -12,6 +12,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddScoped<ITranslationService, TranslationService>();
 builder.Services.AddHttpClient<ILyricsService, LyricsService>();
+// Inyección del servicio principal
+builder.Services.AddScoped<ITranslationService, TranslationService>();
+// Inyección del proveedor (DeepL)
+builder.Services.AddHttpClient<ITranslationProvider, DeepLProvider>();
+
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

@@ -35,5 +35,23 @@ namespace TranslatorApp.Controllers
 
             return Ok(lyrics);
         }
+
+        [HttpGet("translate-song")]
+        public async Task<ActionResult<TranslationResponseDto>> TranslateSong([FromQuery] string artist, [FromQuery] string title)
+        {
+            var lyrics = await _lyricsService.GetLyricsAsync(artist, title);
+
+            if (string.IsNullOrWhiteSpace(lyrics))
+                return NotFound("Letra no encontrada");
+
+            var request = new TranslationRequestDto
+            {
+                Lyrics = lyrics
+            };
+
+            var result = await _translationService.TranslateAsync(request);
+
+            return Ok(result);
+        }
     }
 }
